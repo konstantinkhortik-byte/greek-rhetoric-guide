@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7 принципов великих греческих ораторов</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F9F7F2;
+    --surface: #FFFFFF;
+    --border: rgba(60,52,42,0.12);
+    --border-hover: rgba(60,52,42,0.25);
+    --text-primary: #1A1612;
+    --text-secondary: #5A5347;
+    --text-tertiary: #9A9085;
+    --accent: #4A3728;
+    --accent-light: #F0EAE2;
+
+    --ethos:  #EDE9F8; --ethos-t:  #3C2D89;
+    --pathos: #FAEDE8; --pathos-t: #7A2E18;
+    --logos:  #E3F3ED; --logos-t:  #0A5438;
+    --taxis:  #FBF0DC; --taxis-t:  #6B3C08;
+    --kairos: #FCEAEA; --kairos-t: #7A2020;
+    --lexis:  #E5F0FA; --lexis-t:  #0D4478;
+    --hypok:  #EEECEA; --hypok-t:  #403C38;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  header {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 72px 32px 48px;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .eyebrow::after {
+    content: '';
+    flex: 1;
+    height: 0.5px;
+    background: var(--border);
+  }
+
+  h1 {
+    font-family: 'EB Garamond', serif;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
+
+  .subtitle {
+    font-size: 16px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 540px;
+  }
+
+  /* ── Main layout ── */
+  main {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 0 32px 80px;
+  }
+
+  /* ── Section label ── */
+  .section-label {
+    font-size: 10.5px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin: 48px 0 16px;
+  }
+
+  /* ── Principle cards ── */
+  .principles { display: flex; flex-direction: column; gap: 10px; }
+
+  .principle {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.18s, box-shadow 0.18s;
+  }
+  .principle:hover { border-color: var(--border-hover); }
+  .principle.open {
+    border-color: rgba(60,52,42,0.28);
+    box-shadow: 0 2px 16px rgba(60,52,42,0.06);
+  }
+
+  .p-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 20px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .p-badge {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 17px;
+  }
+
+  .p-main { flex: 1; min-width: 0; }
+
+  .p-greek {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin-bottom: 1px;
+  }
+
+  .p-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .p-tagline {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+    line-height: 1.5;
+  }
+
+  .p-chevron {
+    color: var(--text-tertiary);
+    font-size: 20px;
+    transition: transform 0.22s;
+    flex-shrink: 0;
+    margin-top: 8px;
+    line-height: 1;
+  }
+  .principle.open .p-chevron { transform: rotate(180deg); }
+
+  /* ── Expandable body ── */
+  .p-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .principle.open .p-body { max-height: 700px; }
+
+  .p-body-inner {
+    padding: 0 20px 20px 20px;
+    border-top: 0.5px solid var(--border);
+    margin-top: 0;
+    padding-top: 16px;
+    display: grid;
+    gap: 16px;
+  }
+
+  .p-section-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 6px;
+  }
+
+  /* Quote */
+  .quote {
+    font-family: 'EB Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    line-height: 1.75;
+    color: var(--text-secondary);
+    padding: 10px 14px;
+    border-left: 2px solid var(--border-hover);
+    background: var(--bg);
+    border-radius: 0 8px 8px 0;
+  }
+  .quote-attr {
+    display: block;
+    font-style: normal;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: var(--text-tertiary);
+    margin-top: 6px;
+  }
+
+  /* How-to list */
+  .how {
+    font-size: 13.5px;
+    color: var(--text-primary);
+    line-height: 1.7;
+    padding-left: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .how li {
+    padding-left: 18px;
+    position: relative;
+  }
+  .how li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--text-tertiary);
+  }
+
+  /* Example box */
+  .example-box {
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+  .ex-label {
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--text-tertiary);
+    margin-bottom: 3px;
+  }
+  .ex-block + .ex-block { margin-top: 10px; }
+
+  /* ── Checklist ── */
+  .checklist-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .check-item {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .check-item:hover { border-color: var(--border-hover); }
+  .check-item.done {
+    background: #F0F8F4;
+    border-color: rgba(16,110,86,0.25);
+  }
+  .check-item.done .check-text { color: #0A5438; }
+
+  .check-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border-hover);
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, border-color 0.15s;
+    font-size: 10px;
+    color: transparent;
+  }
+  .check-item.done .check-icon {
+    background: #1D9E75;
+    border-color: #1D9E75;
+    color: #fff;
+  }
+
+  .check-text { flex: 1; }
+
+  /* Progress */
+  .progress-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .progress-bar-wrap {
+    flex: 1;
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: #1D9E75;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+    width: 0%;
+  }
+  .progress-label {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    min-width: 36px;
+    text-align: right;
+  }
+
+  /* ── Footer ── */
+  footer {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 32px 32px 48px;
+    border-top: 0.5px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-text {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--text-tertiary);
+  }
+  .footer-names {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    header { padding: 48px 20px 32px; }
+    main { padding: 0 20px 60px; }
+    .checklist-grid { grid-template-columns: 1fr; }
+    footer { padding: 24px 20px 40px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .p-body { transition: none; }
+    .principle { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Риторика · Практический гайд</div>
+  <h1>7 принципов великих греческих ораторов</h1>
+  <p class="subtitle">Аристотель, Демосфен, Перикл, Исократ — принципы убеждения, которые работали в афинском суде и работают на современной сцене. Нажимайте на каждый принцип, чтобы раскрыть детали.</p>
+</header>
+
+<main>
+  <div class="section-label">Принципы — нажмите для деталей</div>
+
+  <div class="principles">
+
+    <!-- 1. ETHOS -->
+    <div class="principle" id="p-ethos">
+      <div class="p-header" onclick="toggle('p-ethos')">
+        <div class="p-badge" style="background:var(--ethos)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ethos-t)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="m9 11 2 2 4-4"/></svg>
+        </div>
+        <div class="p-main">
+          <div class="p-greek">ἦθος · ethos</div>
+          <div class="p-name">Доверие как фундамент</div>
+          <div class="p-tagline">Прежде чем убеждать словами — убеди самим собой</div>
+        </div>
+        <div class="p-chevron">⌄</div>
+      </div>
+      <div class="p-body">
+        <div class="p-body-inner">
+          <div>
+            <div class="p-section-label">Первоисточник</div>
+            <div class="quote">Из трёх видов убеждения первым по важности является характер говорящего. Ибо мы верим добродетельным людям в большей мере и быстрее, чем всем остальным.<span class="quote-attr">— Аристотель, «Риторика»</span></div>
+          </div>
+          <div>
+            <div class="p-section-label">Как применять</div>
+            <ul class="how">
+              <li>Начните с того, <em>почему вы вправе говорить об этой теме</em> — личный опыт, конкретный результат, специфический контекст</li>
+              <li>Признайте ограничения и слабые места своей позиции — это парадоксально повышает доверие</li>
+              <li>Убедитесь, что ваши действия до выступления соответствуют вашим словам</li>
+              <li>Говорите от себя: «я видел», «я делал», «я ошибся» — не «принято считать»</li>
+            </ul>
+          </div>
+          <div>
+            <div class="p-section-label">Пример</div>
+            <div class="example-box">
+              <div class="ex-block"><div class="ex-label">Слабо</div>Сегодня я расскажу вам о запуске продукта.</div>
+              <div class="ex-block"><div class="ex-label">Сильно (ethos)</div>Мы провалили два запуска подряд. Вот что мы поняли — и как третий принёс результат.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. PATHOS -->
+    <div class="principle" id="p-pathos">
+      <div class="p-header" onclick="toggle('p-pathos')">
+        <div class="p-badge" style="background:var(--pathos)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--pathos-t)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <div class="p-main">
+          <div class="p-greek">πάθος · pathos</div>
+          <div class="p-name">Эмоция как движущая сила</div>
+          <div class="p-tagline">Люди решают эмоционально, затем обосновывают логически</div>
+        </div>
+        <div class="p-chevron">⌄</div>
+      </div>
+      <div class="p-body">
+        <div class="p-body-inner">
+          <div>
+            <div class="p-section-label">Первоисточник</div>
+            <div class="quote">Оратор должен поставить слушателей в такое положение духа, чтобы они были тронуты и взволнованы. Ибо суждения меняются в зависимости от того, испытывает ли человек радость или горе, любовь или ненависть.<span class="quote-attr">— Аристотель, «Риторика», II</span></div>
+          </div>
+          <div>
+            <div class="p-section-label">Как применять</div>
+            <ul class="how">
+              <li>Одна конкретная история человека > десять статистических выкладок</li>
+              <li>Назовите эмоцию напрямую: «это должно вас злить», «я сам был в этом отчаянии»</li>
+              <li>Используйте контраст: покажите положение дел сейчас и то, каким оно должно быть</li>
+              <li>Пауза после сильного момента — дайте аудитории почувствовать</li>
+            </ul>
+          </div>
+          <div>
+            <div class="p-section-label">Пример</div>
+            <div class="example-box">
+              <div class="ex-block"><div class="ex-label">Слабо</div>Рынок вырос на 23% благодаря изменению стратегии.</div>
+              <div class="ex-block"><div class="ex-label">Сильно (pathos)</div>Год назад Михаил закрывал магазин. После смены стратегии — он открыл второй. Вот его слова.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. LOGOS -->
+    <div class="principle" id="p-logos">
+      <div class="p-header" onclick="toggle('p-logos')">
+        <div class="p-badge" style="background:var(--logos)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--logos-t)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <div class="p-main">
+          <div class="p-greek">λόγος · logos</div>
+          <div class="p-name">Логика как броня</div>
+          <div class="p-tagline">Аргумент должен выдержать атаку разумного оппонента</div>
+        </div>
+        <div class="p-chevron">⌄</div>
+      </div>
+      <div class="p-body">
+        <div class="p-body-inner">
+          <div>
+            <div class="p-section-label">Первоисточник</div>
+            <div class="quote">Энтимема — риторический силлогизм — является телом доказательства. Дурное рассуждение убеждает временно; лишь истинное рассуждение держится.<span class="quote-attr">— Аристотель, «Риторика», I.1</span></div>
+          </div>
+          <div>
+            <div class="p-section-label">Как применять</div>
+            <ul class="how">
+              <li>Структура: тезис → доказательство → вывод (не «обо всём сразу»)</li>
+              <li>Используйте энтимему: пропустите очевидную предпосылку, пусть аудитория додумает сама — это вовлекает</li>
+              <li>Предвосхитите главное возражение и разберите его раньше, чем это сделают оппоненты</li>
+              <li>Конкретные данные > общие утверждения: «87% клиентов» vs «большинство клиентов»</li>
+            </ul>
+          </div>
+          <div>
+            <div class="p-section-label">Энтимема в действии</div>
+            <div class="example-box">«Компании, которые не инвестируют в данные, теряют доли рынка каждый квартал. [Пауза.] Вы знаете, что нужно делать.»<br><br><span style="color:var(--text-tertiary);font-size:12px">Второй посыл и вывод аудитория формулирует сама — это сильнее прямого заявления.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. TAXIS -->
+    <div class="principle" id="p-taxis">
+      <div class="p-header" onclick="toggle('p-taxis')">
+        <div class="p-badge" style="background:var(--taxis)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--taxis-t)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        </div>
+        <div class="p-main">
+          <div class="p-greek">τάξις · taxis</div>
+          <div class="p-name">Структура как архитектура</div>
+          <div class="p-tagline">Порядок аргументов важен не меньше, чем сами аргументы</div>
+        </div>
+        <div class="p-chevron">⌄</div>
+      </div>
+      <div class="p-body">
+        <div class="p-body-inner">
+          <div>
+            <div class="p-section-label">Первоисточник</div>
+            <div class="quote">Речь имеет два необходимых элемента: изложение предмета и доказательство. Остальное — украшение.<span class="quote-attr">— Аристотель, «Риторика», III.13</span></div>
+          </div>
+          <div>
+            <div class="p-section-label">Классический порядок</div>
+            <ul class="how">
+              <li><strong>Prooimion</strong> — захват внимания + обозначение цели</li>
+              <li><strong>Diegesis</strong> — изложение фактов и контекста</li>
+              <li><strong>Pisteis</strong> — доказательства и аргументы</li>
+              <li><strong>Epilogos</strong> — призыв к действию + эмоциональный финал</li>
+            </ul>
+          </div>
+          <div>
+            <div class="p-section-label">Правило Демосфена: «горки»</div>
+            <div class="example-box">Расставляйте аргументы по нарастающей. Самый сильный — последний. Второй по силе — первый. Слабые — в середину. Аудитория запоминает начало и конец.<br><br><span style="color:var(--text-tertiary);font-size:12px">Сильный → Средние → Наисильнейший</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. KAIROS -->
+    <div class="principle" id="p-kairos">
+      <div class="p-header" onclick="toggle('p-kairos')">
+        <div class="p-badge" style="background:var(--kairos)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--kairos-t)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="p-main">
+          <div class="p-greek">καιρός · kairos</div>
+          <div class="p-name">Момент — он существует</div>
+          <div class="p-tagline">Правильное слово в неправильный момент — проигрыш</div>
+        </div>
+        <div class="p-chevron">⌄</div>
+      </div>
+      <div class="p-body">
+        <div class="p-body-inner">
+          <div>
+            <div class="p-section-label">Первоисточник</div>
+            <div class="quote">Оратор должен уметь пользоваться случаем. Знание того, что надо сказать, и знание того, когда это сказать — разные вещи.<span class="quote-attr">— Исократ, «Панегирик»</span></div>
+          </div>
+          <div>
+            <div class="p-section-label">Как применять</div>
+            <ul class="how">
+              <li>Перед выступлением: узнайте, что сейчас болит у аудитории — и начните именно с этого</li>
+              <li>Читайте зал: если внимание упало — сократите план, перейдите к главному</li>
+              <li>После сильного момента — пауза, не торопитесь к следующему слайду</li>
+              <li>Концовка выступления — пик внимания. Берегите самое важное для финала</li>
+            </ul>
+          </div>
+          <div>
+            <div class="p-section-label">Демосфен о подготовке к моменту</div>
+            <div class="example-box">Демосфен репетировал речи у моря, перекрикивая волны, и с камешками во рту — чтобы в настоящий момент, с живой аудиторией, уже не думать о словах, а чувствовать зал.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. LEXIS -->
+    <div class="principle" id="p-lexis">
+      <div class="p-header" onclick="toggle('p-lexis')">
+        <div class="p-badge" style="background:var(--lexis)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--lexis-t)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+        </div>
+        <div class="p-main">
+          <div class="p-greek">λέξις · lexis</div>
+          <div class="p-name">Язык: точность и ритм</div>
+          <div class="p-tagline">Слова убеждают, ритм закрепляет</div>
+        </div>
+        <div class="p-chevron">⌄</div>
+      </div>
+      <div class="p-body">
+        <div class="p-body-inner">
+          <div>
+            <div class="p-section-label">Первоисточник</div>
+            <div class="quote">Ясность — первая добродетель стиля. Слова должны быть общеупотребительными, но их сочетание — свежим и неожиданным.<span class="quote-attr">— Аристотель, «Риторика», III.2</span></div>
+          </div>
+          <div>
+            <div class="p-section-label">Приёмы</div>
+            <ul class="how">
+              <li><strong>Анафора</strong> — повтор в начале фраз: «Мы строим. Мы ошибаемся. Мы учимся.»</li>
+              <li><strong>Триада</strong> — три элемента воспринимаются как полнота: «быстро, дёшево, надёжно»</li>
+              <li><strong>Метафора</strong> — делает абстрактное конкретным: «данные — это нефть XXI века»</li>
+              <li><strong>Антитеза</strong> — контраст усиливает оба полюса: «не что нас убило, а что нас спасло»</li>
+            </ul>
+          </div>
+          <div>
+            <div class="p-section-label">Правило Исократа</div>
+            <div class="example-box">Перечитывайте вслух. Если вы спотыкаетесь — слушатели споткнутся тоже. Ухо — лучший редактор.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. HYPOKRISIS -->
+    <div class="principle" id="p-hypok">
+      <div class="p-header" onclick="toggle('p-hypok')">
+        <div class="p-badge" style="background:var(--hypok)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--hypok-t)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+        </div>
+        <div class="p-main">
+          <div class="p-greek">ὑπόκρισις · hypokrisis</div>
+          <div class="p-name">Подача: голос, тело, взгляд</div>
+          <div class="p-tagline">Один и тот же текст убеждает или нет — в зависимости от подачи</div>
+        </div>
+        <div class="p-chevron">⌄</div>
+      </div>
+      <div class="p-body">
+        <div class="p-body-inner">
+          <div>
+            <div class="p-section-label">Первоисточник</div>
+            <div class="quote">Hypokrisis — искусство исполнения — имеет огромное значение, поскольку из-за испорченности аудитории ораторы добиваются большего успеха через подачу, нежели через содержание.<span class="quote-attr">— Аристотель, «Риторика», III.1</span></div>
+          </div>
+          <div>
+            <div class="p-section-label">Как применять</div>
+            <ul class="how">
+              <li><strong>Голос:</strong> замедляйтесь на важном, ускоряйтесь на деталях — темп маркирует значимость</li>
+              <li><strong>Пауза:</strong> три секунды тишины после ключевого утверждения убеждают сильнее повтора</li>
+              <li><strong>Взгляд:</strong> удерживайте контакт глаз до конца мысли, не отводите в середине фразы</li>
+              <li><strong>Тело:</strong> жест должен предшествовать слову на полсекунды, не следовать за ним</li>
+            </ul>
+          </div>
+          <div>
+            <div class="p-section-label">Упражнение</div>
+            <div class="example-box">Запишите себя. Посмотрите без звука — понятно ли, где главное? Послушайте без картинки — звучит ли убедительно? Если оба теста пройдены — подача работает.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /principles -->
+
+  <!-- ── Checklist ── -->
+  <div class="section-label" style="margin-top:56px">Чеклист перед выступлением</div>
+
+  <div class="progress-row">
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div class="progress-label" id="progressLabel">0 / 8</div>
+  </div>
+
+  <div class="checklist-grid">
+    <div class="check-item" onclick="checkToggle(this)">
+      <div class="check-icon">✓</div>
+      <div class="check-text">Почему аудитория должна доверять именно мне? <span style="color:var(--text-tertiary)">(Ethos)</span></div>
+    </div>
+    <div class="check-item" onclick="checkToggle(this)">
+      <div class="check-icon">✓</div>
+      <div class="check-text">Есть ли одна история, которая задевает эмоционально? <span style="color:var(--text-tertiary)">(Pathos)</span></div>
+    </div>
+    <div class="check-item" onclick="checkToggle(this)">
+      <div class="check-icon">✓</div>
+      <div class="check-text">Держится ли мой главный аргумент под атакой? <span style="color:var(--text-tertiary)">(Logos)</span></div>
+    </div>
+    <div class="check-item" onclick="checkToggle(this)">
+      <div class="check-icon">✓</div>
+      <div class="check-text">Самый сильный аргумент стоит последним? <span style="color:var(--text-tertiary)">(Taxis)</span></div>
+    </div>
+    <div class="check-item" onclick="checkToggle(this)">
+      <div class="check-icon">✓</div>
+      <div class="check-text">Знаю ли я, что сейчас болит у зала? <span style="color:var(--text-tertiary)">(Kairos)</span></div>
+    </div>
+    <div class="check-item" onclick="checkToggle(this)">
+      <div class="check-icon">✓</div>
+      <div class="check-text">Прочитал ли я речь вслух хотя бы раз? <span style="color:var(--text-tertiary)">(Lexis)</span></div>
+    </div>
+    <div class="check-item" onclick="checkToggle(this)">
+      <div class="check-icon">✓</div>
+      <div class="check-text">Записал ли я себя и посмотрел без звука? <span style="color:var(--text-tertiary)">(Hypokrisis)</span></div>
+    </div>
+    <div class="check-item" onclick="checkToggle(this)">
+      <div class="check-icon">✓</div>
+      <div class="check-text">Знаю ли я точно, какое действие должна совершить аудитория?</div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-text">«Не начинай говорить прежде, чем подумаешь.»</div>
+  <div class="footer-names">Аристотель · Демосфен · Перикл · Исократ — IV–V вв. до н.э.</div>
+</footer>
+
+<script>
+  function toggle(id) {
+    const el = document.getElementById(id);
+    const wasOpen = el.classList.contains('open');
+    document.querySelectorAll('.principle.open').forEach(p => p.classList.remove('open'));
+    if (!wasOpen) el.classList.add('open');
+  }
+
+  function checkToggle(el) {
+    el.classList.toggle('done');
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const total = document.querySelectorAll('.check-item').length;
+    const done = document.querySelectorAll('.check-item.done').length;
+    document.getElementById('progressBar').style.width = (done / total * 100) + '%';
+    document.getElementById('progressLabel').textContent = done + ' / ' + total;
+  }
+</script>
+</body>
+</html>
